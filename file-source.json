@@ -1,0 +1,11 @@
+{
+  "name": "file-source",
+  "config": {
+    "connector.class": "FileStreamSource",
+    "tasks.max": "1",
+    "file": "test.txt",
+    "topics": "connect-test",
+    "name": "file-source"
+  },
+  "tasks": []
+}

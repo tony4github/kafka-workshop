@@ -1,0 +1,11 @@
+{
+    "name": "file-sink",
+    "config": {
+      "connector.class": "FileStreamSink",
+      "tasks.max": "1",
+      "file": "test.sink.txt",
+      "topics": "connect-test",
+      "name": "file-sink"
+    },
+    "tasks": []
+  }
