@@ -1,0 +1,51 @@
+{
+    "namespace": "factset",
+    "name": "intradayPricing",
+    "type": "record",
+    "fields": [
+            {
+              "name": "identifier",
+              "type": "string"
+            },
+            {
+              "name": "last",
+              "type": "string"
+            },
+            {
+              "name": "lastTimestamp",
+              "type": "string"
+            }
+     ],
+     "arg.properties": {
+       "options": [
+            { "identifier": "US:000255109",
+              "last": "31.01x",
+              "lastTimestamp": "2020-06-03 14:05:01"
+            },
+            { "identifier": "US:000380204",
+                "last": "15.07x",
+                "lastTimestamp": "2020-06-03 14:05:07"
+            },
+            { "identifier": "US:000304105",
+                "last": "2.02x",
+                "lastTimestamp": "2020-06-03 14:05:02"
+            },
+            { "identifier": "US:00032Q104",
+                "last": "17.03x",
+                "lastTimestamp": "2020-06-03 14:05:03"
+            },
+            { "identifier": "US:000360206",
+                "last": "55.04x",
+                "lastTimestamp": "2020-06-03 14:05:04"
+            },
+            { "identifier": "US:000361105",
+                "last": "49.05x",
+                "lastTimestamp": "2020-06-03 14:05:05"
+            },
+            { "identifier": "US:000375204",
+                "last": "31.06x",
+                "lastTimestamp": "2020-06-03 14:05:06"
+            }
+        ]
+     }
+}

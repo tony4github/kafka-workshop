@@ -2,10 +2,18 @@
   "name": "file-source",
   "config": {
     "connector.class": "FileStreamSource",
+    "file": "/Users/air2020-i7/milvus-workspace/confluent-cli/test.txt",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
     "tasks.max": "1",
-    "file": "test.txt",
-    "topics": "connect-test",
+    "topic": "connect-test",
+    "transforms": "createKey,extractInt",
+    "transforms.createKey.fields": "identifier",
+    "transforms.createKey.type": "org.apache.kafka.connect.transforms.ValueToKey",
+    "transforms.extractInt.field": "identifier",
+    "transforms.extractInt.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+    "value.converter": "org.apache.kafka.connect.storage.StringConverter",
     "name": "file-source"
   },
-  "tasks": []
+  "tasks": [],
+  "type": "source"
 }

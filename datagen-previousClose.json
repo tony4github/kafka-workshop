@@ -1,0 +1,15 @@
+{
+    "name": "datagen-previousClose",
+    "config": {
+      "connector.class": "io.confluent.kafka.connect.datagen.DatagenConnector",
+      "kafka.topic": "feed-previousClose",
+      "schema.filename": "/Users/air2020-i7/milvus-workspace/kafka-workshop/datagen-previousClose.avro",
+      "schema.keyfield": "identifier",
+      "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+      "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "value.converter.schemas.enable": "false",
+      "max.interval": 3000,
+      "iterations": 10000000,
+      "tasks.max": "1"
+    }
+  }

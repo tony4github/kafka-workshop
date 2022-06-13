@@ -1,0 +1,51 @@
+{
+    "namespace": "cusipsPreviousClose",
+    "name": "previousClose",
+    "type": "record",
+    "fields": [
+            {
+              "name": "identifier",
+              "type": "string"
+            },
+            {
+              "name": "previousClose",
+              "type": "string"
+            },
+            {
+              "name": "previousCloseTimestamp",
+              "type": "string"
+            }
+     ],
+     "arg.properties": {
+       "options": [
+            { "identifier": "US:000255109",
+              "previousClose": "31.00",
+              "previousCloseTimestamp": "2020-06-01 14:05:01"
+            },
+            { "identifier": "US:000380204",
+                "previousClose": "15.00",
+                "previousCloseTimestamp": "2020-06-01 14:05:07"
+            },
+            { "identifier": "US:000304105",
+                "previousClose": "2.00",
+                "previousCloseTimestamp": "2020-06-01 14:05:02"
+            },
+            { "identifier": "US:00032Q104",
+                "previousClose": "17.00",
+                "previousCloseTimestamp": "2020-06-01 14:05:03"
+            },
+            { "identifier": "US:000360206",
+                "previousClose": "55.00",
+                "previousCloseTimestamp": "2020-06-01 14:05:04"
+            },
+            { "identifier": "US:000361105",
+                "previousClose": "49.00",
+                "previousCloseTimestamp": "2020-06-01 14:05:06"
+            },
+            { "identifier": "US:000375204",
+                "previousClose": "33.00",
+                "previousCloseTimestamp": "2020-06-01 14:05:05"
+            }
+        ]
+     }
+}

@@ -1,11 +1,13 @@
 {
+  "_comment":"A Json format of connect-file-sink.properties. Surprisingly, no need to designate an absolute folder for the sink file. And, StringConverter is better here ",
+  "name": "file-sink",
+  "config": {
     "name": "file-sink",
-    "config": {
-      "connector.class": "FileStreamSink",
-      "tasks.max": "1",
-      "file": "test.sink.txt",
-      "topics": "connect-test",
-      "name": "file-sink"
-    },
-    "tasks": []
+    "connector.class": "FileStreamSink",
+    "tasks.max": "1",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "topics": "security_quote_TABLE",
+    "file": "test.sink.txt"
   }
+}
