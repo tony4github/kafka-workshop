@@ -171,7 +171,14 @@ Install and run Confluent Platform v7.1 on local Mac
 9. Schema registry - http://localhost:8081/subjects/cusip-value/versions/
     air2020-i7@Tianyuans-Air jq % curl -X POST -H "Content-Type: application/vnd.schemaregistry.v1+json" -d @./cusipKey.avro http://localhost:8081/subjects/feed-previousClose-key/versions
     air2020-i7@Tianyuans-Air jq % curl -X DELETE http://localhost:8081/subjects/feed-previousClose-key/
+        {
+            "subject": "feed-previousClose-key",
+            "version": 3,
+            "id": 5,
+            "schema": "{\"type\":\"record\",\"name\":\"cusipKey\",\"namespace\":\"com.pnc.amg.security\",\"fields\":[{\"name\":\"identifier\",\"type\":\"string\"}]}"
+        }
     air2020-i7@Tianyuans-Air jq % curl http://localhost:8081/subjects/feed-previousClose-key/versions/3 |jq .
+    Under Confluent Kafka, a schema is registed under a 'subject' by naming as topicName-key/topicName-value
     schema definition in previousCloseValue.avro 
         { 
             "schema": 
