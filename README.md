@@ -153,6 +153,12 @@ Install and run Confluent Platform v7.1 on local Mac
         SELECT * FROM  QUERYABLE_PREVIOUS_CLOSE_TABLE ;
     c0. The best approach to resolve the last-mile-delivery issue
         -   ksql table to show the latest quote
+                CREATE OR REPLACE STREAM security_quote_stream
+                    WITH (kafka_topic='security_quote',
+                        value_format='json') AS
+                    SELECT intraday_pricing_stream.identifier, intraday_pricing_stream.LAST, intraday_pricing_stream.LASTTIMESTAMP, PREVIOUSCLOSE, PREVIOUSCLOSETIMESTAMP
+                        FROM intraday_pricing_stream
+                            JOIN QUERYABLE_PREVIOUS_CLOSE_TABLE ON intraday_pricing_stream.identifier = QUERYABLE_PREVIOUS_CLOSE_TABLE.identifier;
                 CREATE TABLE SECURITY_QUOTE_last_TABLE 
                         AS SELECT 	SECURITY_QUOTE_STREAM.INTRADAY_PRICING_STREAM_IDENTIFIER cusip,
                                 LATEST_BY_OFFSET(SECURITY_QUOTE_STREAM.LAST) LATEST_QUOTE
