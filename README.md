@@ -3,16 +3,21 @@ Install and run Confluent Platform v7.1 on local Mac
 1. confluent-7.1.0.tar.gz at http://packages.confluent.io/archive/7.1/
 
 2. confluent cli: create a cli folder 
+    ```
         air2020-i7@Tianyuans-Air confluent-cli % pwd
             /Users/air2020-i7/milvus-workspace/confluent-cli
         https://s3-us-west-2.amazonaws.com/confluent.cloud/confluent-cli/archives/latest/confluent_latest_darwin_amd64.tar.gz
         curl -sL --http1.1 https://cnfl.io/cli | sh -s -- latest
+    ```
 
 3. Instruction https://docs.confluent.io/confluent-cli/current/install.html
+    ```
         export CONFLUENT_HOME=<The directory where Confluent is installed>
         export PATH=$CONFLUENT_HOME/bin:$PATH
+    ```
 
 4. From the cli folder, start/stop Confluent services 
+    ```
         air2020-i7@Tianyuans-Air confluent-cli % ./confluent local current
             /var/folders/0h/lby64v4n2hnc25tfdqbmzzlm0000gn/T/confluent.163981
         air2020-i7@Tianyuans-Air confluent.163981 % ls -al /var/folders/0h/lby64v4n2hnc25tfdqbmzzlm0000gn/T/confluent.163981 
@@ -72,7 +77,9 @@ Install and run Confluent Platform v7.1 on local Mac
                 Kafka is [DOWN]
                 Stopping ZooKeeper
                 ZooKeeper is [DOWN]
+    ```
 5. FileStream source/sink connectors - premature product, not much usable! pls skip this section
+    ```
     As Mac standalone mode (or maybe cli launch), plugin.path is not able to change by connect-standalone.properties. 
     So, under share/ folder, just copy ./filestream-connectors/connect-file-7.1.0-ce.jar to ./java/
     cli command for the connectors, which reaches to etc/kafak/connect-file-source.properties and etc/kafak/connect-file-sink.properties
@@ -96,7 +103,9 @@ Install and run Confluent Platform v7.1 on local Mac
         "topic": "connect-test"
         air2020-i7@Tianyuans-Air confluent-cli % cat /Users/air2020-i7/milvus-workspace/kafka-workshop/previousClose-cusips.json >>test.txt
         air2020-i7@Tianyuans-Air confluent-cli % more test.sink.txt
+    ```
 6. Datagen - customized feed for intraday pricing 
+    ```
     installation - https://docs.confluent.io/kafka-connect-datagen/current/index.html
     connector config - https://github.com/confluentinc/kafka-connect-datagen/tree/master/config
     FactSet intraday connector
@@ -117,10 +126,14 @@ Install and run Confluent Platform v7.1 on local Mac
         Schema setting
             "schema.filename": "/Users/air2020-i7/milvus-workspace/kafka-workshop/datagen-previousClose.avro",
             "schema.keyfield": "identifier",
+    ```
 7. May not use this anymore ... Create a compacted log for cusips topic
+    ```
     uid/pwd : a@b.com/123
     air2020-i7@Tianyuans-Air confluent-cli % ./confluent kafka topic create feed-previousClose-compacted --url http://localhost:8082 --config cleanup.policy=compact --replication-factor 1 
+    ```
 8. ksqlDB
+    ```
     a.  'intraday_pricing_stream' - Factset intraday pricing
         CREATE OR REPLACE stream intraday_pricing_stream 
             (IDENTIFIER STRING , last STRING, lastTIMESTAMP STRING) 
@@ -138,7 +151,32 @@ Install and run Confluent Platform v7.1 on local Mac
                 AS SELECT * FROM PREVIOUS_CLOSE_TABLE PREVIOUS_CLOSE_TABLE 
                     EMIT CHANGES;
         SELECT * FROM  QUERYABLE_PREVIOUS_CLOSE_TABLE ;
-    c.  'QUERYABLE_security_quote_TABLE' - Stream/Table Join (key=cusips identifier) between feed-intraday-pricing and previous-close 
+    c0. The best approach to resolve the last-mile-delivery issue
+        -   ksql table to show the latest quote
+            ```
+            CREATE TABLE SECURITY_QUOTE_last_TABLE 
+                    AS SELECT 	SECURITY_QUOTE_STREAM.INTRADAY_PRICING_STREAM_IDENTIFIER cusip,
+                            LATEST_BY_OFFSET(SECURITY_QUOTE_STREAM.LAST) LATEST_QUOTE
+                        FROM SECURITY_QUOTE_STREAM
+                            GROUP BY SECURITY_QUOTE_STREAM.INTRADAY_PRICING_STREAM_IDENTIFIER
+                    EMIT CHANGES;
+            select * from SECURITY_QUOTE_last_TABLE ;
+            ```
+        -   Java client to connect a ksql table - https://docs.ksqldb.io/en/latest/developer-guide/ksqldb-clients/java-client/
+            
+            ```
+            String pullQuery = "SELECT * FROM MY_MATERIALIZED_TABLE WHERE KEY_FIELD='some_key';";
+            BatchedQueryResult batchedQueryResult = client.executeQuery(pullQuery);
+
+            // Wait for query result
+            List<Row> resultRows = batchedQueryResult.get();
+
+            System.out.println("Received results. Num rows: " + resultRows.size());
+            for (Row row : resultRows) {
+            System.out.println("Row: " + row.values());
+            }
+            ```
+    c1.  'QUERYABLE_security_quote_TABLE' - Stream/Table Join (key=cusips identifier) between feed-intraday-pricing and previous-close 
         CREATE OR REPLACE STREAM security_quote_stream
             WITH (kafka_topic='security_quote',
                 value_format='json') AS
@@ -168,7 +206,9 @@ Install and run Confluent Platform v7.1 on local Mac
                     "file": "test.sink.txt"
                 }
             }
+    ```
 9. Schema registry - http://localhost:8081/subjects/cusip-value/versions/
+    ```
     air2020-i7@Tianyuans-Air jq % curl -X POST -H "Content-Type: application/vnd.schemaregistry.v1+json" -d @./cusipKey.avro http://localhost:8081/subjects/feed-previousClose-key/versions
     air2020-i7@Tianyuans-Air jq % curl -X DELETE http://localhost:8081/subjects/feed-previousClose-key/
         {
@@ -217,7 +257,9 @@ Install and run Confluent Platform v7.1 on local Mac
                 ]
             }"
         }
+    ```
 10. Demo steps
+    ```
     a.  Confluent local
         i.  % confluent local services start
         ii. % confluent local services stop
@@ -245,6 +287,7 @@ Install and run Confluent Platform v7.1 on local Mac
             5 cusips of 'previousClose' 
             7 cusips of 'intraday pricing'
     h.  schema application
+    ```
         
 
 
