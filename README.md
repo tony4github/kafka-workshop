@@ -151,7 +151,7 @@ Install and run Confluent Platform v7.1 on local Mac
                 AS SELECT * FROM PREVIOUS_CLOSE_TABLE PREVIOUS_CLOSE_TABLE 
                     EMIT CHANGES;
         SELECT * FROM  QUERYABLE_PREVIOUS_CLOSE_TABLE ;
-    c0. The best approach to resolve the last-mile-delivery issue
+    c0. The best approach to resolve the stream/table join and the last-mile-delivery issues
         -   ksql table to show the latest quote
                 CREATE OR REPLACE STREAM security_quote_stream
                     WITH (kafka_topic='security_quote',
