@@ -147,10 +147,11 @@ Install and run Confluent Platform v7.1 on local Mac
             (IDENTIFIER STRING PRIMARY KEY, PREVIOUSCLOSE STRING, PREVIOUSCLOSETIMESTAMP STRING) 
                 WITH (KAFKA_TOPIC='feed-previousClose', KEY_FORMAT='KAFKA', VALUE_FORMAT='JSON');
         CREATE OR REPLACE TABLE QUERYABLE_PREVIOUS_CLOSE_TABLE 
-            WITH (KAFKA_TOPIC='QUERYABLE_PREVIOUS_CLOSE', PARTITIONS=1, REPLICAS=1) 
+            WITH (KAFKA_TOPIC='QUERYABLE_PREVIOUS_CLOSE') 
                 AS SELECT * FROM PREVIOUS_CLOSE_TABLE PREVIOUS_CLOSE_TABLE 
                     EMIT CHANGES;
-        SELECT * FROM  QUERYABLE_PREVIOUS_CLOSE_TABLE ;
+        SELECT * FROM  PREVIOUS_CLOSE_TABLE emit changes;
+        SELECT * FROM  QUERYABLE_PREVIOUS_CLOSE_TABLE where IDENTIFIER in ('US:000304105', 'US:00032Q104','US:000360206', 'US:000375204', 'US:000380204', 'US:000255109', 'US:000361105');
     c0. The best approach to resolve the stream/table join and the last-mile-delivery issues
         -   ksql table to show the latest quote
                 CREATE OR REPLACE STREAM security_quote_stream
@@ -165,7 +166,7 @@ Install and run Confluent Platform v7.1 on local Mac
                             FROM SECURITY_QUOTE_STREAM
                                 GROUP BY SECURITY_QUOTE_STREAM.INTRADAY_PRICING_STREAM_IDENTIFIER
                         EMIT CHANGES;
-                select * from SECURITY_QUOTE_last_TABLE ;
+                select * from SECURITY_QUOTE_last_TABLE where cusip in ('US:000304105', 'US:00032Q104','US:000360206', 'US:000375204', 'US:000380204', 'US:000255109', 'US:000361105');
         -   Java client to connect a ksql table - https://docs.ksqldb.io/en/latest/developer-guide/ksqldb-clients/java-client/
                 String pullQuery = "SELECT * FROM MY_MATERIALIZED_TABLE WHERE KEY_FIELD='some_key';";
                 BatchedQueryResult batchedQueryResult = client.executeQuery(pullQuery);
