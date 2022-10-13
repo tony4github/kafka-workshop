@@ -50,3 +50,8 @@ ksql-java-client/src/main/java/com/.DS_Store
 ksql-java-client/src/main/java/.DS_Store
 ksql-java-client/src/main/.DS_Store
 .DS_Store
+ksql-java-client/target/test-classes/com/milvus/ksql/java11/test/ApplicationTest.class
+ksql-java-client/target/test-classes/com/milvus/ksql/java11/test/HttpRequestTest.class
+ksql-java-client/target/test-classes/com/milvus/ksql/java11/test/KsqlJavaClientMvcTest.class
+ksql-java-client/target/test-classes/com/milvus/ksql/java11/test/MvcApplicationTest.class
+ksql-java-client/target/test-classes/com/milvus/ksql/java11/test/SmokeTest.class

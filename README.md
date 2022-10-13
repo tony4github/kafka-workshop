@@ -208,6 +208,23 @@ Install and run Confluent Platform v7.1 on local Mac
                     "file": "test.sink.txt"
                 }
             }
+    d.  ksql REST API
+        i.  emit changes in a real-time fashing
+            curl --http1.1 \
+                -X "POST" "http://localhost:8088/query" \
+                -H "Accept: application/vnd.ksql.v1+json" \
+                -d $'{
+            "ksql": "SELECT * FROM SECURITY_QUOTE_last_TABLE EMIT CHANGES;",
+            "streamsProperties": {}
+            }'
+        ii. pull query for the latest - one shot at a time. 
+            curl --http1.1 \
+                -X "POST" "http://localhost:8088/query" \
+                -H "Accept: application/vnd.ksql.v1+json" \
+                -d $'{
+            "ksql": "SELECT * FROM SECURITY_QUOTE_last_TABLE ;",
+            "streamsProperties": {}
+            }'
     ```
 9. Schema registry - http://localhost:8081/subjects/cusip-value/versions/
     ```
