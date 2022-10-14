@@ -58,7 +58,7 @@ public  class KsqlJavaClientController {
     Thread.sleep(5000);
     if(futurnVoid.isDone())
       System.out.println("The future is done. " + futurnVoid.toString());
-    return "[ Reactive Stream has been activated... The stream stops once a marked quote consumed - $55.04 specifically]";
+    return "[ Reactive Stream has been activated... The stream stops once an invalid quote consumed, like $0 or below]";
 
   }
 

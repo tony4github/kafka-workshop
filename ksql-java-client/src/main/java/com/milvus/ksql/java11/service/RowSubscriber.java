@@ -26,7 +26,10 @@ public class RowSubscriber implements Subscriber<Row> {
 
     // Request the next row
     subscription.request(1);
-    if(row.toString().contains("55.04")){// This is a trick to stop the async subscription/thread
+    if(Double.parseDouble(row.getString("LATEST_QUOTE")) < 0.0000000000001){
+        // This is a trick to stop the async subscription/thread
+        // Need to change intraday pricing (dataGen connector)
+        // $0 or minus price will terminate the streaming
         subscription.cancel();
         System.out.println("---Reactive--- subscription cancelled.");
     }
