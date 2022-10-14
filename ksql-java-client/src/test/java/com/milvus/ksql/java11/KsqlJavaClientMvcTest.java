@@ -28,8 +28,20 @@ public class KsqlJavaClientMvcTest {
 	private MockMvc mockMvc;
 
 	@Test
-	public void shouldReturnDefaultMessage() throws Exception {
-		this.mockMvc.perform(get("/ksqlQuery")).andDo(print()).andExpect(status().isOk())
+	public void testPullQuery() throws Exception {
+		this.mockMvc.perform(get("/ksqlPullQuery")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(startsWith("[")));
+	}
+
+	@Test
+	public void testPollingStream() throws Exception {
+		this.mockMvc.perform(get("/ksqlPollingStream")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(startsWith("[")));
+	}
+
+	@Test
+	public void testReactiveStream() throws Exception {
+		this.mockMvc.perform(get("/ksqlReactiveStream")).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().string(startsWith("[")));
 	}
 }

@@ -167,17 +167,22 @@ Install and run Confluent Platform v7.1 on local Mac
                                 GROUP BY SECURITY_QUOTE_STREAM.INTRADAY_PRICING_STREAM_IDENTIFIER
                         EMIT CHANGES;
                 select * from SECURITY_QUOTE_last_TABLE where cusip in ('US:000304105', 'US:00032Q104','US:000360206', 'US:000375204', 'US:000380204', 'US:000255109', 'US:000361105');
-        -   Java client to connect a ksql table - https://docs.ksqldb.io/en/latest/developer-guide/ksqldb-clients/java-client/
-                String pullQuery = "SELECT * FROM MY_MATERIALIZED_TABLE WHERE KEY_FIELD='some_key';";
-                BatchedQueryResult batchedQueryResult = client.executeQuery(pullQuery);
+        -   Java client to connect a ksql table 
+            - Pls check up the 'ksql-java-client' project
+            - Reference 
+            ```
+                https://docs.ksqldb.io/en/latest/developer-guide/ksqldb-clients/java-client/
+                    String pullQuery = "SELECT * FROM MY_MATERIALIZED_TABLE WHERE KEY_FIELD='some_key';";
+                    BatchedQueryResult batchedQueryResult = client.executeQuery(pullQuery);
 
-                // Wait for query result
-                List<Row> resultRows = batchedQueryResult.get();
+                    // Wait for query result
+                    List<Row> resultRows = batchedQueryResult.get();
 
-                System.out.println("Received results. Num rows: " + resultRows.size());
-                for (Row row : resultRows) {
-                System.out.println("Row: " + row.values());
-                }
+                    System.out.println("Received results. Num rows: " + resultRows.size());
+                    for (Row row : resultRows) {
+                        System.out.println("Row: " + row.values());
+                    }
+            ```
     c1.  'QUERYABLE_security_quote_TABLE' - Stream/Table Join (key=cusips identifier) between feed-intraday-pricing and previous-close 
         CREATE OR REPLACE STREAM security_quote_stream
             WITH (kafka_topic='security_quote',

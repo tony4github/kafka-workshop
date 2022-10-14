@@ -60,17 +60,21 @@
             </dependency>
         ```
         - I have Confluent v7.1.0 local brokers started 
-        - ksql mocking is required before hitting the SpringBoot instanceksqlQuery'
+    - Pull query :  mocking is required before hitting the SpringBoot instance 
+        - mocking test case set up (dataGen connectors and ksql table)
         ```
             Intraday(datagen-intraday-pricing) and previousClose(datagen-previousClose) connectors is up and running
             Ksql table (SECURITY_QUOTE_last_TABLE) joined by two steams above is ready
         ```
-        - hit the url of 'http://localhost:8080/ksqlQuery'
-
+        - hit the url of 'http://localhost:8080/ksqlPullQuery'
         ```
             A new ksql query controller - KsqlJavaClientController.java. 
             % mvn clean package
             % java -jar ./target/ksql-0.0.1-SNAPSHOT.jar
             
         ```
+    - Streaming/Push query and terminiation 
+    ```
+
+    ```
 

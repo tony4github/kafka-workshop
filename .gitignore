@@ -55,3 +55,4 @@ ksql-java-client/target/test-classes/com/milvus/ksql/java11/test/HttpRequestTest
 ksql-java-client/target/test-classes/com/milvus/ksql/java11/test/KsqlJavaClientMvcTest.class
 ksql-java-client/target/test-classes/com/milvus/ksql/java11/test/MvcApplicationTest.class
 ksql-java-client/target/test-classes/com/milvus/ksql/java11/test/SmokeTest.class
+ksql-java-client/target/classes/com/milvus/ksql/java11/service/RowSubscriber.class
