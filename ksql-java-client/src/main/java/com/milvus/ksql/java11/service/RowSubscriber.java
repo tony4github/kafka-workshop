@@ -3,6 +3,8 @@ import io.confluent.ksql.api.client.Row;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import com.milvus.ksql.java11.model.EventProceeding;
+
 public class RowSubscriber implements Subscriber<Row> {
 
   private Subscription subscription;
@@ -26,7 +28,7 @@ public class RowSubscriber implements Subscriber<Row> {
 
     // Request the next row
     subscription.request(1);
-    if(Double.parseDouble(row.getString("LATEST_QUOTE")) < 0.0000000000001){
+    if(EventProceeding.isAlarming(row)){
         // This is a trick to stop the async subscription/thread
         // Need to change intraday pricing (dataGen connector)
         // $0 or minus price will terminate the streaming
