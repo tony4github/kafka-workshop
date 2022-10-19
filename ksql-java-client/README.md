@@ -66,12 +66,15 @@
             Intraday(datagen-intraday-pricing) and previousClose(datagen-previousClose) connectors is up and running
             Ksql table (SECURITY_QUOTE_last_TABLE) joined by two steams above is ready
         ```
-        - hit the url of 'http://localhost:8080/ksqlPullQuery'
+        - hit the url  
         ```
+            'http://localhost:8080/ksqlPullQuery'
+            'http://localhost:8080/ksqlReactiveStream'
+            'http://localhost:8080/ksqlPollingStream'
             A new ksql query controller - KsqlJavaClientController.java. 
-            % mvn clean package
-            % java -jar ./target/ksql-0.0.1-SNAPSHOT.jar
-            
+            Active profile is required as the following
+            % mvn clean package -P kafkaLocal
+            % java -jar -Dspring.profiles.active=kafkaLocal ./target/ksql-0.0.1-SNAPSHOT.jar
         ```
     - Streaming/Push query and terminiation 
     ```
@@ -115,3 +118,4 @@
         ```
             % mvn clean package -P springNative
         ```
+    

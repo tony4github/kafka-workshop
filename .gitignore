@@ -59,3 +59,4 @@ ksql-java-client/target/classes/com/milvus/ksql/java11/service/RowSubscriber.cla
 ksql-java-client/target/classes/application-kafkaLocal.properties
 ksql-java-client/target/classes/application-kafkaRemote.properties
 ksql-java-client/target/classes/application-springNative.properties
+ksql-java-client/target/classes/com/milvus/ksql/java11/model/EventProceeding.class
