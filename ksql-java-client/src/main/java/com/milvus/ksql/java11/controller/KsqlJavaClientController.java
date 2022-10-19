@@ -34,7 +34,7 @@ public  class KsqlJavaClientController {
   @Value("${ksqlDB.test.quote.query.pull:select * from ksql_processing_log ;}")
   private String ksqlDBTestQuoteQueryPull;
   
-  @Value("${ksqlDB.test.quote.stream.polling.limit:33}")
+  @Value("${ksqlDB.test.quote.stream.polling.limit:0}")
   private int ksqlDBTestQuoteStreamPollingLimit;
 
   @Value("${ksqlDB.test.quote.stream.polling:select * from ksql_processing_log emit changes ;}")

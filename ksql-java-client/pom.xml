@@ -19,6 +19,30 @@
         <ksqldb.version>7.0.6</ksqldb.version>
 	</properties>
 
+	<profiles>
+		<profile>
+			<id>springNative</id>
+			<properties>
+				<activeProfile>springNative</activeProfile>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>kafkaLocal</id>
+			<properties>
+				<activeProfile>kafkaLocal</activeProfile>
+			</properties>
+		</profile>
+		<profile>
+			<id>kafkaRemote</id>
+			<properties>
+				<activeProfile>kafkaRemote</activeProfile>
+			</properties>
+		</profile>
+	</profiles>
+
 	<repositories>
 		<repository>
 			<id>confluent</id>

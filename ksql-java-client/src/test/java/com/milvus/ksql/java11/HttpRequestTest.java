@@ -16,12 +16,17 @@ public class HttpRequestTest {
 	@Value("${local.server.port}")
 	private int port;
 
+	@Value("${spring.profiles.active}")
+    private String springProfilesActive;
+
 	@Autowired
 	private TestRestTemplate restTemplate;
 
 	@Test
 	public void greetingShouldReturnDefaultMessage() throws Exception {
-        System.out.println("port:"+ port);
+        System.out.println("port: "+ port);
+		System.out.println("profile: "+ springProfilesActive);
+		
 		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
 				String.class)).contains("Hello");
 	}

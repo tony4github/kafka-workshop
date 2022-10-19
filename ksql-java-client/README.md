@@ -77,4 +77,41 @@
     ```
 
     ```
-
+3. SpringBoot+Maven testing
+    - 3 profiles defined
+        - springNative
+        - kafkaLocal
+        - kafkaRemote
+    - SpringBoot profile activated via maven profiles in pom.xml
+        - SpringBoot property 'spring.profiles.active=@activeProfile@'
+        - Maven profile
+        ```
+            <profiles>
+                <profile>
+                    <id>springNative</id>
+                    <properties>
+                        <activeProfile>springNative</activeProfile>
+                    </properties>
+                    <activation>
+                        <activeByDefault>true</activeByDefault>
+                    </activation>
+                </profile>
+                <profile>
+                    <id>kafkaLocal</id>
+                    <properties>
+                        <activeProfile>kafkaLocal</activeProfile>
+                    </properties>
+                </profile>
+                <profile>
+                    <id>kafkaRemote</id>
+                    <properties>
+                        <activeProfile>kafkaRemote</activeProfile>
+                    </properties>
+                </profile>
+            </profiles>
+        ```
+    - Maven build and test 
+        - if springNative is active, ksql test cases will be executed as a native http call to the root path of '/'
+        ```
+            % mvn clean package -P springNative
+        ```

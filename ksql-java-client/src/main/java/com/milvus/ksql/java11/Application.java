@@ -17,7 +17,7 @@ public class Application implements CommandLineRunner{
 	@Value("${spring.profiles.default}")
     private String springProfilesDefault;
 
-	@Value("${spring.profiles.active!=null?spring.profiles.active:'inactive'}")
+	@Value("${spring.profiles.active}")
     private String springProfilesActive;
 
 	public static void main(String[] args) {

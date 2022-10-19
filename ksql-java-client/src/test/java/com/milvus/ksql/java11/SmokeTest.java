@@ -21,7 +21,7 @@ public class SmokeTest {
 	@Value("${server.port}")
 	private int serverPort;
 
-	@Value("${spring.profiles.active!=null?spring.profiles.active:'inactive'}")
+	@Value("${spring.profiles.active}")
     private String springProfilesActive;
 
 	@Test
