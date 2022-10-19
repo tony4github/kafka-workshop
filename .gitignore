@@ -56,3 +56,6 @@ ksql-java-client/target/test-classes/com/milvus/ksql/java11/test/KsqlJavaClientM
 ksql-java-client/target/test-classes/com/milvus/ksql/java11/test/MvcApplicationTest.class
 ksql-java-client/target/test-classes/com/milvus/ksql/java11/test/SmokeTest.class
 ksql-java-client/target/classes/com/milvus/ksql/java11/service/RowSubscriber.class
+ksql-java-client/target/classes/application-kafkaLocal.properties
+ksql-java-client/target/classes/application-kafkaRemote.properties
+ksql-java-client/target/classes/application-springNative.properties
